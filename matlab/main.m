@@ -1,3 +1,5 @@
+%% Visualisering
+
 L1=5;
 L2=15;
 L3=3;
