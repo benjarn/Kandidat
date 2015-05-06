@@ -58,3 +58,14 @@ xlabel('Tid [s]')
 ylabel('Hjulställning [rad]')
 
 saveas(gcf,'bilder/Tillstand_Ypos_styr','epsc')
+
+%% endast theta,y4
+figure()
+[ax,p1,p2]=plotyy(time,theta4_sim*180/pi,time,y4_sim)
+legend('theta','y4')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+ylabel(ax(2),'Position [m]') % label right y-axis
+
+saveas(gcf,'bilder/theta_y4','epsc')
