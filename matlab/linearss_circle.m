@@ -59,6 +59,7 @@ Q=C'*C;
 
 [K,S,e] = lqr(sys,Q,R) % hitta kompensationsmatris K, och nya poler e
 
+feedbackPoles = e
 
 F=10*[phi3e;phi2e;phi1e];
 sys_cl=ss(A-B*K,B*(K*F+1)*0.1,C,D); % Rita stegsvaret för det kompenserade systemet

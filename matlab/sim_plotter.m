@@ -1,4 +1,5 @@
 %% plots the simulation in MATLAB
+%% Med Styrsignal
 close all;
 
 %plot(states_sim*180/pi)
@@ -17,7 +18,7 @@ plot(time,input_sim)
 title('Styrsignal')
 xlabel('Tid [s]')
 ylabel('Hjulställning [rad]')
-%%
+%% Utan styrsignal
 
 figure()
 plot(time,states_sim*180/pi)

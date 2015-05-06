@@ -29,3 +29,5 @@ R=1; % R-värde i lqr ger penalty till inputs (bör vara låg)så att styrsignal
 Q=C'*C;
 
 [K,S,e] = lqr(sys,Q,R) % hitta kompensationsmatris K, och nya poler e
+
+feedbackPoles = e
