@@ -16,7 +16,7 @@ A=-1*[-1/L4 1/L3 0;
 B=-1*[0 0 1/L1]';
 
 % % %cirkel
-alpha=0.22; 
+alpha=0.1; 
 r1=L1/tan(alpha);
 r2=sqrt(r1^2-L1^2);
 r3=sqrt(r2^2-L2^2);
