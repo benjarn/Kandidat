@@ -4,7 +4,7 @@
   Connections:
   Potentiometers: A0,A1,A2
   Servo: D3
-  H-bridge: D5 - switch,D6 - relays
+  H-bridge: D5 - enable,D6 - relay-switch
   buttons: D8,D9,D10,D11
 
   Funktioner:
@@ -34,6 +34,9 @@ const int button3 = 11;
 #include <Servo.h>
 Servo frontServo;  // create servo object
 
+//Motor
+const int motorEnablePin = 5;
+const int gearSwitchPin = 6;
 
 //Setup
 void setup() {
@@ -43,6 +46,9 @@ void setup() {
   pinMode(button1, INPUT);
   pinMode(button2, INPUT);
   pinMode(button3, INPUT);
+  
+  pinMode(motorEnablePin, OUTPUT);
+  pinMode(gearSwitchPin, OUTPUT);
 
   Serial.begin(9600);
   Serial.println("Starting...");
@@ -78,7 +84,7 @@ void loop() {
         if(mode==2){
           steer(-20);
           delay(100);
-        }elseif(mode==4){
+        }else if(mode==4){
           steer(20);
           delay(100);
         }
@@ -105,7 +111,7 @@ void gear(int selectedGear){
       // Drive forward
       if(currentGear!=1){
         gear(0);
-        digitalWrite(gearSwitchPing,LOW);
+        digitalWrite(gearSwitchPin,LOW);
         delay(200);
         digitalWrite(motorEnablePin,HIGH);
       }
@@ -115,7 +121,7 @@ void gear(int selectedGear){
       // Drive in reverse
       if(currentGear!=2){
         gear(0);
-        digitalWrite(gearSwitchPing,HIGH);
+        digitalWrite(gearSwitchPin,HIGH);
         delay(200);
         digitalWrite(motorEnablePin,HIGH);
       }
