@@ -4,9 +4,9 @@
   Connections:
   Potentiometers: A0,A1,A2
   Servo: D3
-  H-bridge: 
+  H-bridge: D5 - switch,D6 - relays
   buttons: D8,D9,D10,D11
-  
+
   Funktioner:
   D8: stoppar systemet
   D9: kör framåt tills släpen har rätat ut
@@ -19,7 +19,7 @@
 
 // Defines
 int steeringMode=0; // Steering mode ( 0-Forward, 1-straightBack, 2-circleBack )
-
+int currentGear=0; // Current gear, for stopping protection
 //Sensors
 const int pot0 = 0;
 const int pot1 = 1;
@@ -38,7 +38,7 @@ Servo frontServo;  // create servo object
 //Setup
 void setup() {
   frontServo.attach(3);
-  
+
   pinMode(button0, INPUT);
   pinMode(button1, INPUT);
   pinMode(button2, INPUT);
@@ -52,7 +52,9 @@ void setup() {
 //Loop
 void loop() {
   //check steering mode
-  steeringMode = readMode(); // read input for the steeringmode
+  if(readMode() != 0){
+    steeringMode = readMode(); // read input for the steeringmode
+  }
   switch (steeringMode) {
     case 2:
       // Straight forward to align trailers
@@ -69,11 +71,25 @@ void loop() {
       gear(2);
       controller(true);
       break;
+    case 1:
+      // Manual mode
+      while(readMode() != 1){ //Stay in manual mode until button1 is pressed
+        int mode = readMode();
+        if(mode==2){
+          steer(-20);
+          delay(100);
+        }elseif(mode==4){
+          steer(20);
+          delay(100);
+        }
+      delay(50);
+      }
+      break;
     default:
       // Stop the truck
       gear(0);
   }
-  delay(1000); // delay for stability?
+  delay(100); // delay for stability?
 }
 
 //Functions
@@ -86,13 +102,29 @@ void gear(int selectedGear){
   // Sets the H-bridge
   switch (selectedGear){
     case 1:
-      // kör fram = true
-      break;
+      // Drive forward
+      if(currentGear!=1){
+        gear(0);
+        digitalWrite(gearSwitchPing,LOW);
+        delay(200);
+        digitalWrite(motorEnablePin,HIGH);
+      }
+      currentGear=1;
+   break;
     case 2:
-      // kör bakåt = true
+      // Drive in reverse
+      if(currentGear!=2){
+        gear(0);
+        digitalWrite(gearSwitchPing,HIGH);
+        delay(200);
+        digitalWrite(motorEnablePin,HIGH);
+      }
+      currentGear=2;
       break;
     default:
-      // kör = false
-      int i =0;
+      // stops the motor
+      currentGear=0;
+      digitalWrite(motorEnablePin,LOW);
+      delay(1000);
   }
 }
