@@ -53,6 +53,11 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Starting...");
   delay(1000);
+  steer(0);
+  potCal[0] = getAngle(pot0);
+  potCal[1] = getAngle(pot1);
+  potCal[2] = getAngle(pot2);
+
 }
 
 //Loop
@@ -77,15 +82,19 @@ void loop() {
       gear(2);
       controller(true);
       break;
-    case 1:
+    case 6:
       // Manual mode
       while(readMode() != 1){ //Stay in manual mode until button1 is pressed
         int mode = readMode();
+        gear(1);
         if(mode==2){
-          steer(-20);
+          steer(-30);
           delay(100);
         }else if(mode==4){
-          steer(20);
+          steer(30);
+          delay(100);
+        }else if(mode==8){
+          steer(0);
           delay(100);
         }
       delay(50);
@@ -93,6 +102,7 @@ void loop() {
       break;
     default:
       // Stop the truck
+      steer(0);
       gear(0);
   }
   delay(100); // delay for stability?
@@ -101,7 +111,7 @@ void loop() {
 //Functions
 int readMode(){
   // set the steering via remote or button
-  return digitalRead(button0) + 2*digitalRead(button1) + 4*digitalRead(button2) + 8*digitalRead(button3);
+  return digitalRead(button0) + 2*digitalRead(button1) + 8*digitalRead(button2) + 4*digitalRead(button3);
 }
 
 void gear(int selectedGear){
@@ -116,7 +126,7 @@ void gear(int selectedGear){
         digitalWrite(motorEnablePin,HIGH);
       }
       currentGear=1;
-   break;
+      break;
     case 2:
       // Drive in reverse
       if(currentGear!=2){

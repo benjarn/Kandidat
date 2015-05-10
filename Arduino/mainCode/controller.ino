@@ -36,11 +36,13 @@ void controller(bool inCircle) {
 
 // Helper functions
 void steer( int angle ) {
-  angle+= -servoCal;
+  angle+= servoCal;
   Serial.print("Steering angle: ");
   Serial.println(angle+servoCal);
-  if(angle>170)
-    angle=170;
+  if(angle>140)
+    angle=140;
+  if(angle<40)
+    angle=40;
   frontServo.write(angle);
 }
 
