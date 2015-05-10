@@ -5,6 +5,7 @@ close all;
 %plot(states_sim*180/pi)
 %plot(input_sim)
 time=linspace(0,length(states_sim)/10,length(states_sim));
+phi3=states_sim(:,3);
 
 figure()
 subplot(2,1,1) % second subplot
@@ -61,7 +62,7 @@ saveas(gcf,'bilder/Tillstand_Ypos_styr','epsc')
 
 %% endast theta,y4
 figure()
-[ax,p1,p2]=plotyy(time,theta4_sim*180/pi,time,y4_sim)
+[ax,p1,p2]=plotyy(time,-theta4_sim*180/pi,time,y4_sim)
 legend('theta','y4')
 title('Tillstånd')
 xlabel('Tid [s]')
@@ -69,3 +70,61 @@ ylabel('Vinkel [grad]')
 ylabel(ax(2),'Position [m]') % label right y-axis
 
 saveas(gcf,'bilder/theta_y4','epsc')
+
+%% endast phi3
+figure()
+plot(time,phi3*180/pi)
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+saveas(gcf,'bilder/phi3','epsc')
+
+%% Uppdelade subplots: phi3 - theta/y4 - input
+%figure()
+figure('units','normalized','position',[.1 .1 .4 .5])
+subplot(3,1,1) % first subplot
+plot(time,phi3*180/pi)
+legend('phi3')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+
+subplot(3,1,2) % second
+[ax,p1,p2]=plotyy(time,-theta4_sim*180/pi,time,y4_sim)
+legend('theta4','y4')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+ylabel(ax(2),'Position [m]') % label right y-axis
+
+subplot(3,1,3) % third subplot
+plot(time,input_sim)
+title('Styrsignal')
+xlabel('Tid [s]')
+ylabel('Hjulställning [rad]')
+
+saveas(gcf,'bilder/3subplots','epsc')
+%% 3subplots med alla tillstånd ( bra för cirkel )
+figure('units','normalized','position',[.1 .1 .4 .5])
+subplot(3,1,1) % first subplot
+plot(time,states_sim*180/pi)
+legend('phi3','phi2','phi1')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+
+subplot(3,1,2) % second
+[ax,p1,p2]=plotyy(time,-theta4_sim*180/pi,time,y4_sim)
+legend('theta4','y4')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+ylabel(ax(2),'Position [m]') % label right y-axis
+
+subplot(3,1,3) % third subplot
+plot(time,input_sim)
+title('Styrsignal')
+xlabel('Tid [s]')
+ylabel('Hjulställning [rad]')
+
+saveas(gcf,'bilder/3subplotscirkel','epsc')
