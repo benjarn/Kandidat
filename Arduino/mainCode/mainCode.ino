@@ -8,10 +8,16 @@
   buttons: D8,D9,D10,D11
 
   Funktioner:
-  D8: stoppar systemet
-  D9: kör framåt tills släpen har rätat ut
-  D10: backar rakt bakåt
-  D11: backar runt en cirkulär bana
+  C - D8: stoppar systemet
+  A - D9: kör framåt tills släpen har rätat ut
+  D - D10: backar rakt bakåt
+  B - D11: backar runt en cirkulär bana
+  
+  A+B - Manuellt läge
+    - A - vänster 30grader
+    - B - höger 30grader
+    - D - rakt fram
+    - C - stoppar och går ur manuellt läge
 */
 
 // Includes
