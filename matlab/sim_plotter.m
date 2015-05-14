@@ -1,12 +1,12 @@
 %% plots the simulation in MATLAB
-%% Med Styrsignal
+%% setup
 close all;
 
 %plot(states_sim*180/pi)
 %plot(input_sim)
 time=linspace(0,length(states_sim)/10,length(states_sim));
 phi3=states_sim(:,3);
-
+%% Med Styrsignal
 figure()
 subplot(2,1,1) % second subplot
 plot(time,states_sim*180/pi)
@@ -128,3 +128,16 @@ xlabel('Tid [s]')
 ylabel('Hjulställning [rad]')
 
 saveas(gcf,'bilder/3subplotscirkel','epsc')
+
+%%
+figure()
+hold on 
+plot(x4_sim,y4_sim)
+circle_time=linspace(0,2*pi);
+plot(r4*cos(circle_time),r4*sin(circle_time)+r4)
+plot(r1*cos(circle_time)-19,r1*sin(circle_time)+r1+3,'xg')%+6)
+legend('position','referens','justerad referens (-19,+3)')
+hold off
+xlabel('x4 [m]')
+ylabel('y4 [m]')
+axis equal
