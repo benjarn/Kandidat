@@ -3,9 +3,9 @@ close all;
 clear all;
 clc;
 
-L1=0.29;
-L2=0.57;
-L3=0.25;
+L1=30;
+L2=50;
+L3=30;
 L4=0.5;
 % % %bakåt och cirkel
 A=-1*[-1/L3 1/L2;
@@ -53,7 +53,7 @@ Q=eye(2); % Q-matris för lqr
 % Alternativ 2
 R=1; % R-värde i lqr ger penalty till inputs (bör vara låg)så att styrsignalen kan påverka mycket
 Q=C'*C;
-
+Q(1)=2*Q(1);
 
 
 [K,S,e] = lqr(sys,Q,R) % hitta kompensationsmatris K, och nya poler e
@@ -65,5 +65,5 @@ feedbackPoles = e
 
 
 Xd=[phi2e;phi1e]
-
+K
 %step(sys_cl)

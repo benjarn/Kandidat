@@ -90,6 +90,7 @@ void loop() {
       break;
     case 6:
       // Manual mode
+      Serial.println("manual");
       while(readMode() != 1){ //Stay in manual mode until button1 is pressed
         int mode = readMode();
         gear(1);

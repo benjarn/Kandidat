@@ -3,8 +3,8 @@ close all;
 clear all;
 clc;
 
-L1=5;
-L2=15;
+L1=29;
+L2=55;
 
 % % %bakåt och cirkel
 A=-1*[-1/L2;
@@ -59,5 +59,5 @@ feedbackPoles = e
 
 Xd=[phi1e]
 
-
+K
 %step(sys_cl)
