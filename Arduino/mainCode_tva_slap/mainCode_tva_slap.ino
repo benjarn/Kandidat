@@ -29,7 +29,6 @@ int currentGear=0; // Current gear, for stopping protection
 //Sensors
 const int pot0 = 0;
 const int pot1 = 1;
-const int pot2 = 2;
 
 const int button0 = 8;
 const int button1 = 9;
@@ -62,7 +61,6 @@ void setup() {
   steer(0);
   potCal[0] = map(analogRead(pot0), 0, 1023, 0, 300);
   potCal[1] = map(analogRead(pot1), 0, 1023, 0, 300);
-  potCal[2] = map(analogRead(pot2), 0, 1023, 0, 300);
 
 }
 
@@ -114,7 +112,7 @@ void loop() {
       steer(0);
       gear(0);
   }
-  delay(30); // delay for stability?
+  delay(10); // delay for stability?
 }
 
 //Functions

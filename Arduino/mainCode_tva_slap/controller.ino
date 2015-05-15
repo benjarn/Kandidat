@@ -13,17 +13,17 @@ void controller(bool inCircle) {
   - Actuate steering
   */
 
-  float desStates[NSTATES] = {0, 0, 0};
+  float desStates[NSTATES] = {0,0};
 
   if (inCircle) { //Runs in circle
 
     desStates[0] = Xd[0];
     desStates[1] = Xd[1];
-    desStates[2] = Xd[2];
+
   }
 
 
-  float states[NSTATES] = {getAngle(pot0), getAngle(pot1), getAngle(pot2)};
+  float states[NSTATES] = {getAngle(pot0), getAngle(pot1)};
 
   float steerAngle = 0;
   for (int i = 0; i < NSTATES; i++) {
@@ -44,6 +44,7 @@ void steer( int angle ) {
   if(angle<40)
     angle=40;
   frontServo.write(angle);
+  delay(10);
 }
 
 float getAngle(int sensorPin) {
@@ -56,10 +57,10 @@ float getAngle(int sensorPin) {
   sensorValue=sensorValue/30; //medelvärde
   sensorValue = map(sensorValue, 0, 1023, 0, 300); // mapping example
   sensorValue += -potCal[sensorPin];
-  
+
   if(sensorPin==pot0)
     sensorValue=-sensorValue;
-
+    
   Serial.print("Potentiometer: ");
   Serial.println((int)sensorValue);
   return deg2rad((int)sensorValue);

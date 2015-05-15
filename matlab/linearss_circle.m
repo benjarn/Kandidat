@@ -3,10 +3,10 @@ close all;
 clear all;
 clc;
 
-L1=5;
-L2=15;
-L3=3;
-L4=15;
+L1=29.5;
+L2=49.5;
+L3=30;
+L4=49.5;
 % % %bakåt och cirkel
 A=-1*[-1/L4 1/L3 0;
     0 -1/L3 1/L2;
@@ -52,8 +52,8 @@ Q=eye(5); % Q-matris för lqr
 % Q(4,4)=0.1;
 
 % Alternativ 2
-R=1; % R-värde i lqr ger penalty till inputs (bör vara låg)så att styrsignalen kan påverka mycket
-Q=C'*C;
+R=0.1; % R-värde i lqr ger penalty till inputs (bör vara låg)så att styrsignalen kan påverka mycket
+Q=100*(C'*C);
 
 
 
@@ -66,5 +66,6 @@ sys_cl=ss(A-B*K,B*(K*F+1)*0.1,C,D); % Rita stegsvaret för det kompenserade syst
 
 
 Xd=[phi3e;phi2e;phi1e]
-
+Xd'
+K
 %step(sys_cl)
