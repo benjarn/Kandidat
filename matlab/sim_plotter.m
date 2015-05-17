@@ -79,6 +79,26 @@ xlabel('Tid [s]')
 ylabel('Vinkel [grad]')
 saveas(gcf,'bilder/phi3','epsc')
 
+%% Uppdelade subplots: phi3 - theta/y4
+%figure()
+figure('units','normalized','position',[.1 .1 .4 .5])
+subplot(2,1,1) % first subplot
+plot(time,phi3*180/pi)
+legend('phi3')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+
+subplot(2,1,2) % second
+[ax,p1,p2]=plotyy(time,-theta4_sim*180/pi,time,y4_sim)
+legend('theta4','y4')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+ylabel(ax(2),'Position [m]') % label right y-axis
+
+
+saveas(gcf,'bilder/2subplots_phi3_xy','epsc')
 %% Uppdelade subplots: phi3 - theta/y4 - input
 %figure()
 figure('units','normalized','position',[.1 .1 .4 .5])
@@ -133,6 +153,26 @@ saveas(gcf,'bilder/3subplotscirkel','epsc')
 figure()
 hold on 
 plot(x4_sim,y4_sim)
+circle_time=linspace(3*pi/2,-pi/2,length(x4_sim));
+plot(r1*cos(circle_time),r1*sin(circle_time)+r4)
+plot(r1*cos(circle_time)-14.5,r1*sin(circle_time)+r1+2.5,'g')%+6)
+legend('position','referens','justerad referens (-14.5,+2.5)')
+hold off
+xlabel('x4 [m]')
+ylabel('y4 [m]')
+axis equal
+
+%% xy,tillstånd
+figure()
+subplot(2,1,1) % first subplot
+plot(time,states_sim*180/pi)
+legend('phi3','phi2','phi1')
+title('Tillstånd')
+xlabel('Tid [s]')
+
+subplot(2,1,2)
+hold on 
+plot(x4_sim,y4_sim)
 circle_time=linspace(0,2*pi);
 plot(r4*cos(circle_time),r4*sin(circle_time)+r4)
 plot(r1*cos(circle_time)-19,r1*sin(circle_time)+r1+3,'xg')%+6)
@@ -141,3 +181,5 @@ hold off
 xlabel('x4 [m]')
 ylabel('y4 [m]')
 axis equal
+
+ylabel('Vinkel [grad]')

@@ -7,7 +7,7 @@ close all;
 angles=states_sim(:,2:5);
 y4=states_sim(:,1);
 time=linspace(0,length(states_sim)/10,length(states_sim));
-
+%%
 figure()
 subplot(2,1,1) % second subplot
 plot(time,angles*180/pi)
@@ -70,3 +70,24 @@ ylabel('Vinkel [grad]')
 ylabel(ax(2),'Position [m]') % label right y-axis
 
 saveas(gcf,'bilder/5tillstand/theta_y4','epsc')
+
+%% Uppdelade subplots: phi3 - theta/y4
+%figure()
+figure('units','normalized','position',[.1 .1 .4 .5])
+subplot(2,1,1) % first subplot
+plot(time,angles(:,2)*180/pi)
+legend('phi3')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+
+subplot(2,1,2) % second
+[ax,p1,p2]=plotyy(time,angles(:,1)*180/pi,time,y4)
+legend('theta','y4')
+title('Tillstånd')
+xlabel('Tid [s]')
+ylabel('Vinkel [grad]')
+ylabel(ax(2),'Position [m]') % label right y-axis
+
+
+saveas(gcf,'bilder/5tillstand/2subplots_phi5_xy','epsc')

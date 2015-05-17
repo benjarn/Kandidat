@@ -3,10 +3,10 @@ close all;
 clear all;
 clc;
 
-L1=29.5;
-L2=49.5;
-L3=30;
-L4=49.5;
+L1=5;
+L2=15;
+L3=3;
+L4=15;
 % % %bakåt och cirkel
 A=-1*[-1/L4 1/L3 0;
     0 -1/L3 1/L2;
